@@ -19,7 +19,16 @@ import MySQLdb
 
 logger = logging.getLogger('.utils')
 
-DEBUG_ENABLED = os.environ.get('SEAFILE_DOCKER_VERBOSE', '').lower() in ('true', '1', 'yes')
+def get_conf(key, default=None):
+    key = key.upper()
+    return os.environ.get(key, default)
+
+def get_conf_bool(key, default="false"):
+    v = get_conf(key, default)
+    return v.lower() in ('true', '1', 'yes')
+    
+
+DEBUG_ENABLED = get_conf_bool('SEAFILE_DOCKER_VERBOSE','')
 
 def eprint(*a, **kw):
     kw['file'] = sys.stderr
@@ -51,7 +60,7 @@ def _find_flag(args, *opts, **kw):
 
 def call(*a, **kw):
     dry_run = kw.pop('dry_run', False)
-    quiet = kw.pop('quiet', DEBUG_ENABLED)
+    quiet = kw.pop('quiet', not DEBUG_ENABLED)
     cwd = kw.get('cwd', os.getcwd())
     check_call = kw.pop('check_call', True)
     reduct_args = kw.pop('reduct_args', [])
@@ -218,10 +227,7 @@ def get_script(script):
 
 _config = None
 
-def get_conf(key, default=None):
-    key = key.upper()
-    return os.environ.get(key, default)
-
+    
 def _add_default_context(context):
     default_context = {
         'current_timestr': datetime.datetime.now().strftime('%m/%d/%Y %H:%M:%S'),
@@ -267,13 +273,12 @@ def update_version_stamp(version, fn=get_version_stamp_file()):
 
 def wait_for_mysql():
     db_host = get_conf('DB_HOST', '127.0.0.1')
-
-    if get_conf('USE_EXISTING_DB', '0').lower() in ('true', '1', 'yes'):
-        db_user = get_conf('DB_USER')
-        db_passwd = get_conf('DB_USER_PASSWD')
+    if get_conf_bool('USE_EXISTING_DB') == '1':
+       db_user = get_conf('DB_USER', '')
+       db_passwd = get_conf('DB_PASSWD', '')
     else:
-        db_user = 'root'
-        db_passwd = get_conf('DB_ROOT_PASSWD', '')
+       db_user = 'root'
+       db_passwd = get_conf('DB_ROOT_PASSWD', '')
 
     while True:
         try:
@@ -300,3 +305,33 @@ def replace_file_pattern(fn, pattern, replacement):
         content = fp.read()
     with open(fn, 'w') as fp:
         fp.write(content.replace(pattern, replacement))
+
+def ensure_dict(dictionary, keys):
+    d = dictionary
+    for k in keys:
+        if k not in d:
+            d[k] = {}
+        d = d[k]
+        
+def set_key(dictionary, keys, v):
+    if not isinstance(keys, (list,tuple)):
+        keys = [keys]
+    d = dictionary
+    for k in keys[:-1]:
+        if k not in d:
+            d[k] = {}
+        d = d[k]
+    d[keys[-1]] = v
+    
+    
+def behind_ssl_termination():
+    return get_conf_bool('BEHIND_SSL_TERMINATION')
+
+def listen_on_https():
+    return not behind_ssl_termination() and get_conf_bool('SEAFILE_SERVER_LETSENCRYPT', 'false')
+
+
+def uses_https():
+    return listen_on_https() or behind_ssl_termination()
+
+    
