@@ -131,7 +131,7 @@ def init_seafile_server():
         'SEAHUB_DB': get_conf('SEAHUB_DB', 'seahub_db'),
         # Default MariaDB root user has empty password and can only connect from localhost.
         'MYSQL_ROOT_PASSWD': get_conf('DB_ROOT_PASSWD', ''),
-        'USE_EXISTING_DB': get_conf('USE_EXISTING_DB', '0'),
+        'USE_EXISTING_DB': get_conf('USE_EXISTING_DB', '0').lower() in ('true', '1', 'yes'),
     }
 
     # Change the script to allow mysql root password to be empty
