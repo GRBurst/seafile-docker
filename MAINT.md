@@ -20,12 +20,12 @@ git push origin master
     git push origin seafile-base
     ```
 
-    * Create a tag "v6.0.7" and push it to github. Wait for travis ci to finish: this time it would push the image grburst/seafile_seafile:6.0.7 to docker hub since it's triggered by a tag.
+    * Create a tag "v6.0.7" and push it to github. Wait for travis ci to finish: this time it would push the image grburst/seafile_server:6.0.7 to docker hub since it's triggered by a tag.
     ```sh
     git tag v6.0.7
     git push origin v6.0.7
     ```
-    * Ensure the new image is available in https://hub.docker.com/r/grburst/seafile_seafile/tags/
+    * Ensure the new image is available in https://hub.docker.com/r/grburst/seafile_server/tags/
 
 * Pro
 
@@ -35,7 +35,7 @@ git push origin master
     git push origin seafile-pro-base
     ```
     
-    * Create a tag "v6.0.7-pro" and push it to github. Wait for travis ci to finish: this time it would push the image ${registry}/grburst/seafile_seafile-pro:6.0.7 to docker Registry since it's triggered by a tag.
+    * Create a tag "v6.0.7-pro" and push it to github. Wait for travis ci to finish: this time it would push the image ${registry}/grburst/seafile_server-pro:6.0.7 to docker Registry since it's triggered by a tag.
     ```sh
     git tag v6.0.7-pro
     git push origin v6.0.7

@@ -5,12 +5,12 @@ base_image=grburst/seafile_base-mc:18.04
 base_image_squashed=grburst/seafile_base-mc:18.04-squashed
 pro_base_image=grburst/seafile_pro-base-mc:18.04
 pro_base_image_squashed=grburst/seafile_pro-base-mc:18.04-squashed
-server_image=grburst/seafile_seafile-mc:$(server_version)
-server_image_squashed=grburst/seafile_seafile-mc:$(server_version)-squashed
-pro_server_image=grburst/seafile_seafile-pro-mc:$(pro_server_version)
-pro_server_image_squashed=grburst/seafile_seafile-pro-mc:$(pro_server_version)-squashed
-latest_pro_server_image=grburst/seafile_seafile-pro-mc:latest
-latest_server_image=grburst/seafile_seafile-mc:latest
+server_image=grburst/seafile_server-mc:$(server_version)
+server_image_squashed=grburst/seafile_server-mc:$(server_version)-squashed
+pro_server_image=grburst/seafile_server-pro-mc:$(pro_server_version)
+pro_server_image_squashed=grburst/seafile_server-pro-mc:$(pro_server_version)-squashed
+latest_pro_server_image=grburst/seafile_server-pro-mc:latest
+latest_server_image=grburst/seafile_server-mc:latest
 
 all:
 	@echo
@@ -64,5 +64,7 @@ push-pro-server:
 	docker push ${host}/$(latest_pro_server_image)
 
 push: push-base push-server
+build: base server
+buildp: pro-base pro-server
 
-.PHONY: base server push push-base push-server
+.PHONY: base server

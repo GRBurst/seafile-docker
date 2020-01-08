@@ -9,7 +9,7 @@ e.g.
 Assume your old project path is /opt/seafile-docker, so your data path is /opt/seafile-docker/shared.
 
     docker rm -f seafile
-    docker pull grburst/seafile_seafile:latest
-    docker run -it --name seafile -v /opt/seafile-docker/shared:/shared -p 80:80 -p 443:443 grburst/seafile_seafile:latest
+    docker pull grburst/seafile_server:latest
+    docker run -it --name seafile -v /opt/seafile-docker/shared:/shared -p 80:80 -p 443:443 grburst/seafile_server:latest
 
 Congratulations, you've upgraded to a new version.

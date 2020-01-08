@@ -1,4 +1,4 @@
-FROM grburst/seafile_seafile:6.2.5
+FROM grburst/seafile_server:6.2.5
 
 ENV SEAFILE_VERSION=6.1.0
 

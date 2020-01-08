@@ -4,12 +4,12 @@ base_image=grburst/seafile_cluster-base:18.04
 base_image_squashed=grburst/seafile_cluster-base:18.04-squashed
 pro_base_image=grburst/seafile_cluster-pro-base:18.04
 pro_base_image_squashed=grburst/seafile_cluster-pro-base:18.04-squashed
-server_image=grburst/seafile_seafile:$(server_version)
-server_image_squashed=grburst/seafile_seafile:$(server_version)-squashed
+server_image=grburst/seafile_server:$(server_version)
+server_image_squashed=grburst/seafile_server:$(server_version)-squashed
 pro_server_image=grburst/seafile_cluster-seafile-pro:$(server_version)
 pro_server_image_squashed=grburst/seafile_cluster-seafile-pro:$(server_version)-squashed
 latest_pro_server_image=grburst/seafile_cluster-seafile-pro:latest
-latest_server_image=grburst/seafile_seafile:latest
+latest_server_image=grburst/seafile_server:latest
 
 all:
 	@echo
