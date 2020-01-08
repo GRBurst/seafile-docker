@@ -1,4 +1,4 @@
-FROM seafileltd/cluster-base:18.04
+FROM grburst/seafile_cluster-base:18.04
 
 # syslog-ng and syslog-forwarder would mess up the container stdout, not good
 # when debugging/upgrading.
