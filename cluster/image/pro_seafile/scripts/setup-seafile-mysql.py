@@ -1288,6 +1288,10 @@ need_pause = True
 def get_param_val(arg, env, default=None):
     return arg or os.environ.get(env, default)
 
+def get_param_bool(arg, env, default="false"):
+    v = get_param_val(arg, env, default)
+    return v.lower() in ('true', '1', 'yes')
+
 def check_params(args):
     server_name = 'seafile'
     ccnet_config.server_name = ccnet_config.validate_server_name(server_name)
@@ -1304,14 +1308,12 @@ def check_params(args):
 
     global db_config
 
-    use_existing_db = get_param_val(args.use_existing_db, 'USE_EXISTING_DB', '0')
+    use_existing_db = get_param_bool(args.use_existing_db, 'USE_EXISTING_DB', '0')
     # pylint: disable=redefined-variable-type
-    if use_existing_db == '0':
+    if use_existing_db:
         db_config = NewDBConfigurator()
-    elif use_existing_db == '1':
-        db_config = ExistingDBConfigurator()
     else:
-        raise InvalidParams('Invalid use existing db parameter, the value can only be 0 or 1')
+        db_config = ExistingDBConfigurator()
 
     mysql_host = get_param_val(args.mysql_host, 'MYSQL_HOST', '127.0.0.1')
     if not mysql_host:
