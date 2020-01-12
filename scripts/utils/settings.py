@@ -65,8 +65,7 @@ def python_formated(v, indentLevel):
     if isinstance(v, str):
         if "'" not in v:
             return "'" + v + "'"
-        assert("'''" not in v) # not implemented
-        return "'''" + v + "'''"
+        return v
     if isinstance(v, dict):
         t = "{\n"
         keys = v.keys()
