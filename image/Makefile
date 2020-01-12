@@ -25,6 +25,9 @@ base:
 	docker-squash --tag $(base_image_squashed) $(base_image)
 	docker tag $(base_image_squashed) $(base_image)
 	docker rmi `docker images --filter "dangling=true" -q --no-trunc`
+	@echo
+	@echo "Successfully build base image".
+	@echo
 
 server:
 	cd seafile && cp -rf ../../scripts ./ && docker build -t $(server_image) .
@@ -32,12 +35,18 @@ server:
 	docker tag $(server_image_squashed) $(server_image)
 	docker tag $(server_image) $(latest_server_image)
 	docker rmi `docker images --filter "dangling=true" -q --no-trunc`
+	@echo
+	@echo "Successfully build server image".
+	@echo
 
 pro-base:
 	cd pro_base && docker build -t $(pro_base_image) .
 	docker-squash --tag $(pro_base_image_squashed) $(pro_base_image)
 	docker tag $(pro_base_image_squashed) $(pro_base_image)
 	docker rmi `docker images --filter "dangling=true" -q --no-trunc`
+	@echo
+	@echo "Successfully build pro-base image".
+	@echo
 
 pro-server:
 	cd pro_seafile && cp -rf ../../scripts ./ && docker build -t $(pro_server_image) .
@@ -45,6 +54,9 @@ pro-server:
 	docker tag $(pro_server_image_squashed) $(pro_server_image)
 	docker tag $(pro_server_image) $(latest_pro_server_image)
 	docker rmi `docker images --filter "dangling=true" -q --no-trunc`
+	@echo
+	@echo "Successfully build pro-server image".
+	@echo
 
 push-base:
 	docker push $(base_image)
