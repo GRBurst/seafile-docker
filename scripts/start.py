@@ -53,6 +53,7 @@ def apply_code_fixes():
     call('''cd {0}; patch -u seahub/thirdpart/wsgidav/dc/seahub_db.py < /scripts/seafdav.patch || true'''.format(get_install_dir()))
     call('''cd {0}; patch -u seafile.sh -i /scripts/seafile.patch || true'''.format(get_install_dir()))
     call('''cd {0}; patch -u seaf-gc.sh -i /scripts/seaf-gc.patch || true'''.format(get_install_dir()))
+    call('''cd {0}; patch -u seahub.sh -i /scripts/seahub.patch || true'''.format(get_install_dir()))
 
 
 # environment might have changed (db names, memcached hostname, etc

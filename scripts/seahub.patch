@@ -1,0 +1,15 @@
+--- seafile-server-7.1.1/seahub.sh	2019-12-23 11:37:47.000000000 +0100
++++ seafile-server-7.1.1/seahub.new.sh	2020-01-10 12:46:19.548569063 +0100
+@@ -158,10 +158,10 @@
+     before_start;
+     echo "Starting seahub at port ${port} ..."
+     check_init_admin;
+-    $PYTHON $gunicorn_exe seahub.wsgi:application -c "${gunicorn_conf}" --preload
++    $PYTHON $gunicorn_exe seahub.wsgi:application -c "${gunicorn_conf}" --log-level debug --preload
+ 
+     # Ensure seahub is started successfully
+-    sleep 5
++    sleep 30
+     if ! pgrep -f "seahub.wsgi:application" 2>/dev/null 1>&2; then
+         printf "\033[33mError:Seahub failed to start.\033[m\n"
+         echo "Please try to run \"./seahub.sh start\" again"
