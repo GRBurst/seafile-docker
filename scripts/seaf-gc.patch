@@ -1,0 +1,11 @@
+--- seafile-server-7.1.1/scripts/seaf-gc.sh	2020-01-09 14:24:35.669323407 +0100
++++ seafile-server-7.1.1/scripts/seaf-gc.sh.new	2020-01-09 14:23:52.757321056 +0100
+@@ -64,7 +64,7 @@
+     check_component_running "ccnet-server" "ccnet-server -c ${default_ccnet_conf_dir}"
+     check_component_running "seaf-server" "seaf-server -c ${default_ccnet_conf_dir}"
+     check_component_running "fileserver" "fileserver -c ${default_ccnet_conf_dir}"
+-    check_component_running "seafdav" "wsgidav.server.run_server"
++    check_component_running "seafdav" "wsgidav.server.server_cli"
+ }
+ 
+ function run_seaf_gc () {
