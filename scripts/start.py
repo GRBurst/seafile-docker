@@ -48,8 +48,9 @@ def watch_controller():
 
 
 def apply_code_fixes():
+    # We are in /opt/seafile/seafile-server-7.1.1
     # fix seafdav not starting
-    call('''cd {0}; patch --forward -p 1 < /scripts/seafdav.patch || true'''.format(get_install_dir()))
+    call('''cd {0}; patch -u seahub/thirdpart/wsgidav/dc/seahub_db.py < /scripts/seafdav.patch || true'''.format(get_install_dir()))
 
 
 # environment might have changed (db names, memcached hostname, etc
