@@ -22,6 +22,7 @@ stdenv.mkDerivation {
     python37Packages.docker
     python37Packages.setuptools
     python37Packages.pylint
+    python37Packages.gunicorn
     # the following packages are related to the dependencies of your python
     # project.
     docker
